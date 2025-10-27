@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head><meta charset="UTF-8"><title>로그인</title></head>
+<body>
+<h1>로그인</h1>
+
+<!-- csrf를 껐으면 hidden 토큰 불필요. 껐다는 전제임 -->
+<form action="/login" method="post">
+  <!-- ⛔ name이 username 이면 기본, 우리가 loginId로 바꿀 거면 Config에도 맞춰야 함 -->
+  <input type="text" name="loginId" placeholder="아이디" />
+  <input type="password" name="password" placeholder="비밀번호" />
+  <button type="submit">로그인</button>
+</form>
+
+<a href="/signup">signup</a>
+
+<!-- 에러 표시 -->
+<div style="color:red">
+  <!-- 서버에서 /login?error=true 로 오면 메시지 표시 -->
+  <script>
+    if (new URLSearchParams(location.search).get('error') === 'true') {
+      document.write('로그인 실패: 아이디 또는 비밀번호를 확인하세요.');
+    }
+  </script>
+</div>
+</body>
+</html>

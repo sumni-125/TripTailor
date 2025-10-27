@@ -7,13 +7,17 @@ import java.time.LocalTime;
 
 @Entity
 @Table(name = "trip_detail")
-@Getter @Setter
-@NoArgsConstructor @AllArgsConstructor @Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class TripDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long tripDetailId;
+    @Column(name = "trip_detail_cd")
+    private Long tripDetailCd;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "trip_cd", nullable = false)
@@ -27,7 +31,7 @@ public class TripDetail {
     private LocalDate travelDate;
 
     @Column(nullable = false)
-    private Integer orderNo;
+    private Integer orderNo; // 하루 내 방문 순서
 
     private LocalTime startTime;
     private LocalTime endTime;

@@ -1,0 +1,47 @@
+*{
+      margin:0;
+      padding:0;
+    }
+
+    .header-wrap{
+      margin: 25px auto;
+      width: 1240px;
+      box-sizing: border-box;
+      display:flex;
+      justify-content: space-between;
+    }
+
+    .header-logo{
+      width: 154px;
+      height: 35px;
+    }
+
+    .search-bar{
+      border: 2px solid #93BCC9;
+      border-radius: 40px;
+      width: 500px;
+      height:40px;
+      display:flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+
+    .search-bar input{
+      width: 450px;
+      border: none;
+      outline: none;
+      margin-left: 20px;
+    }
+
+    .search-btn{
+      width: 40px;
+      height: 40px;
+      background-image: url("/image/explore.png");
+      background-size: cover;
+    }
+
+    .login-link{
+      text-decoration: none;
+      color:#909090;
+      margin-top: 15px;
+    }

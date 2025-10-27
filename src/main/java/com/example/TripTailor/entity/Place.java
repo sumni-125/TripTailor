@@ -6,12 +6,16 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "place")
-@Getter @Setter
-@NoArgsConstructor @AllArgsConstructor @Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Place {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "place_cd")
     private Long placeCd;
 
     @Column(nullable = false, length = 100)
@@ -22,6 +26,5 @@ public class Place {
     private Double longitude;
     private String category;
     private String linkUrl;
-
     private LocalDateTime createdAt;
 }
