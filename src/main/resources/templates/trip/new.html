@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>새 여행 만들기</title>
+</head>
+<body>
+
+<header th:replace="~{fragments/header :: headerFragment}"></header>
+<h1>새 여행 만들기</h1>
+<a href="/trip">← 내 여행 목록으로</a>
+
+
+<form th:action="@{/trip}" th:object="${tripForm}" method="post">
+
+  <!-- 도시 -->
+  <div>
+    <label>도시</label>
+    <input type="text" th:field="*{city}" placeholder="도시명을 입력하세요">
+    <div th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></div>
+  </div>
+
+  <!-- 제목 -->
+  <div>
+    <label>여행 제목</label>
+    <input type="text" th:field="*{title}" placeholder="예: 오사카 3박 4일 먹방 여행">
+  </div>
+
+  <!-- 날짜 -->
+  <div>
+    <label>시작일</label>
+    <input type="date" th:field="*{startDate}">
+    <div th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></div>
+  </div>
+
+  <div>
+    <label>종료일</label>
+    <input type="date" th:field="*{endDate}">
+    <div th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></div>
+  </div>
+
+  <!-- 공개 범위 -->
+  <div>
+    <label>공개 범위</label>
+    <select th:field="*{visibility}">
+      <option value="PRIVATE">비공개</option>
+      <option value="LINK">링크 공개</option>
+      <option value="PUBLIC">전체 공개</option>
+    </select>
+  </div>
+
+  <!-- 글로벌 에러 (날짜 범위 등) -->
+  <div th:if="${#fields.hasGlobalErrors()}">
+    <p th:each="err : ${#fields.globalErrors()}"
+       th:text="${err}"></p>
+  </div>
+
+  <button type="submit">저장</button>
+</form>
+
+</body>
+</html>

@@ -19,9 +19,9 @@ public class Trip {
     @Column(name = "trip_cd")
     private Long tripCd;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_cd", nullable = false)
-    private User user;
+    @Column(name = "user_cd", nullable = false)
+    private String userCd;
+
 
     @Column(nullable = false, length = 100)
     private String city;
@@ -35,6 +35,8 @@ public class Trip {
     private LocalDate endDate;
 
     private Integer totalDays;
+
+    private String visibility;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

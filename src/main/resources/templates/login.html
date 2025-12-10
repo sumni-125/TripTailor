@@ -1,27 +1,161 @@
 <!DOCTYPE html>
-<html lang="ko">
-<head><meta charset="UTF-8"><title>로그인</title></head>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"><title>로그인</title>
+  <style>
+    .login-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+            position: relative;
+        }
+    .login-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .social-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .social-button img {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+
+        .social-icon {
+        width: 24px;
+        height: 24px;
+        margin-right: 10px;
+        vertical-align: middle;
+    }
+
+        .kakao-button {
+            background-color: #FEE500;
+            color: #000000;
+        }
+
+        .kakao-button:hover {
+            background-color: #FDD835;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .google-button {
+            background-color: #ffffff;
+            color: #757575;
+            border: 1px solid #dadce0;
+        }
+
+        .google-button:hover {
+            background-color: #f8f9fa;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .google-button img {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+        }
+
+        .return-home {
+            margin-top: 30px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 14px;
+            display: block;
+            transition: color 0.2s;
+        }
+
+        .return-home:hover {
+            color: white;
+        }
+
+        /* 로고 스타일 */
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 600;
+            color: white;
+        }
+  </style>
+</head>
 <body>
 <h1>로그인</h1>
 
-<!-- csrf를 껐으면 hidden 토큰 불필요. 껐다는 전제임 -->
-<form action="/login" method="post">
-  <!-- ⛔ name이 username 이면 기본, 우리가 loginId로 바꿀 거면 Config에도 맞춰야 함 -->
-  <input type="text" name="loginId" placeholder="아이디" />
-  <input type="password" name="password" placeholder="비밀번호" />
-  <button type="submit">로그인</button>
-</form>
+<div class="login-container">
+  <form th:action="@{/login}" method="post">
+    <input type="hidden"
+           th:name="${_csrf.parameterName}"
+           th:value="${_csrf.token}"
+    />
+    <input type="text" name="loginId" placeholder="아이디" />
+    <input type="password" name="password" placeholder="비밀번호" />
+    <button type="submit">로그인</button>
+  </form>
 
-<a href="/signup">signup</a>
+  <a href="/signup">signup</a>
 
-<!-- 에러 표시 -->
-<div style="color:red">
-  <!-- 서버에서 /login?error=true 로 오면 메시지 표시 -->
-  <script>
-    if (new URLSearchParams(location.search).get('error') === 'true') {
-      document.write('로그인 실패: 아이디 또는 비밀번호를 확인하세요.');
-    }
-  </script>
+  <!-- 에러 표시 -->
+  <div style="color:red">
+    <!-- 서버에서 /login?error=true 로 오면 메시지 표시 -->
+    <script>
+      if (new URLSearchParams(location.search).get('error') === 'true') {
+        document.write('로그인 실패: 아이디 또는 비밀번호를 확인하세요.');
+      }
+    </script>
+  </div>
+  <div class="login-buttons">
+    <!-- 카카오 로그인 버튼 -->
+    <a href="/oauth2/authorize/kakao" class="social-button kakao-button">
+      <svg class="social-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 3C7.03 3 3 6.48 3 10.75c0 2.74 1.66 5.15 4.17 6.51l-.68 2.47c-.05.19.11.37.3.32.06-.02.12-.05.17-.1l2.9-1.94c.7.13 1.42.2 2.14.2 4.97 0 9-3.48 9-7.75S16.97 3 12 3z" fill="#000000"/>
+      </svg>
+      카카오로 시작하기
+    </a>
+
+    <!-- 구글 로그인 -->
+    <a href="/oauth2/authorize/google" class="social-button google-button">
+      <img src="https://www.google.com/images/branding/googleg/1x/googleg_standard_color_128dp.png" alt="Google">
+      구글로 시작하기
+    </a>
+  </div>
+
 </div>
+
 </body>
 </html>

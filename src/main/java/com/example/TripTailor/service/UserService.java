@@ -5,6 +5,7 @@ import com.example.TripTailor.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -18,6 +19,7 @@ public class UserService {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    @Transactional
     public void signUp(User user){
         System.out.println(user);
         String encodedPw = passwordEncoder.encode(user.getPassword());
@@ -27,5 +29,10 @@ public class UserService {
         user.setProvider("Local");
         user.setCreatedAt(LocalDateTime.now());
         userRepository.save(user);
+    }
+
+    @Transactional
+    public void deleteUser(String userCd){
+        userRepository.deleteByUserCd(userCd);
     }
 }

@@ -17,6 +17,7 @@
     <div th:if="${#authorization.expression('isAuthenticated()')}">
       <span th:text="${#authentication.principal.user.nickname + ' 님'}"></span>
       <a class="login-link" th:href="@{/logout}">로그아웃</a>
+
     </div>
 
     <div th:unless="${#authorization.expression('isAuthenticated()')}">
