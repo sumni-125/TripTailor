@@ -7,7 +7,7 @@
 <body>
 <header th:fragment="headerFragment">
   <div class="header-wrap">
-    <img class="header-logo" src="/image/logo2-removebg-preview.png" alt="logo-img">
+    <img class="header-logo" th:src="@{/image/logo2-removebg-preview.png}" alt="logo-img">
     <div class="search-bar">
       <input type="text">
       <div class="search-btn"></div>
@@ -16,10 +16,13 @@
 
     <div th:if="${#authorization.expression('isAuthenticated()')}">
       <span th:text="${#authentication.principal.user.nickname + ' 님'}"></span>
-      <a class="login-link" th:href="@{/logout}">로그아웃</a>
+      <form th:action="@{/logout}" method="post">
+        <button type="submit">로그아웃</button>
+      </form>
+
+      <!--a class="login-link" th:href="@{/logout}">로그아웃</a-->
 
     </div>
-
     <div th:unless="${#authorization.expression('isAuthenticated()')}">
       <a class="login-link" th:href="@{/login}">로그인</a>
     </div>

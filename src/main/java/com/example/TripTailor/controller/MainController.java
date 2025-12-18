@@ -30,7 +30,7 @@ public class MainController {
 
     @GetMapping("/logout")
     public String logOut(){
-        return "redirect:/main";
+        return "login";
     }
 
     @GetMapping("/signup")

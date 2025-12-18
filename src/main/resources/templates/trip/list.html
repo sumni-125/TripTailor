@@ -25,7 +25,9 @@
             <td colspan="5">등록된 여행 일정이 없습니다. 상단의 [새 여행 만들기]를 눌러보세요.</td>
         </tr>
         <tr th:each="trip : ${trips}">
-            <td th:text="${trip.title} ?: '제목 없음'"></td>
+            <td th:text="${trip.title} ?: '제목 없음'">
+                <a th:href="@{/}"></a>
+            </td>
             <td th:text="${trip.city}"></td>
             <td>
                 <span th:text="${trip.startDate}"></span>

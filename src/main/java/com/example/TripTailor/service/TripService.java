@@ -2,6 +2,8 @@ package com.example.TripTailor.service;
 
 import com.example.TripTailor.dto.request.TripForm;
 import com.example.TripTailor.entity.Trip;
+import com.example.TripTailor.entity.TripDetail;
+import com.example.TripTailor.repository.TripDetailRepository;
 import com.example.TripTailor.repository.TripRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,8 @@ public class TripService {
 
     @Autowired
     TripRepository tripRepository;
+    @Autowired
+    TripDetailRepository tripDetailRepository;
 
     public List<Trip> getMyTrips(String userCd){
         return tripRepository.findByUserCdOrderByCreatedAtDesc(userCd);
@@ -39,6 +43,10 @@ public class TripService {
         trip.setUpdatedAt(LocalDateTime.now());
 
         return tripRepository.save(trip);
+    }
+
+    public List<TripDetail> getTripDetail(Long tripCd, String userCd){
+        return tripDetailRepository.findByTripCdAndUserCd(tripCd,userCd);
     }
 
 }
